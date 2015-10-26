@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/b3034c59bf2746cc8a6364892b00d184)](https://www.codacy.com/app/tlasica/learning-together)
+
 # learning-together
 Various code for learning together
 
