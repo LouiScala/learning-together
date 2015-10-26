@@ -1,6 +1,6 @@
 package org.louiscala.learning.trees
 
-object Main extends App {
+object TreeHeight extends App {
 
   trait Node
   case class  InnerTreeNode ( left:Node, right:Node, value:Int ) extends Node
