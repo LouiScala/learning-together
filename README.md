@@ -11,3 +11,8 @@ Coding together the tree heigh problem:
 ## Oct 28, 2015
 
 Joint code review of various [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) implementations.
+
+Please create a pull request with your implementation, place your files under:
+
+*src/{main,test}/org/louiscala/learning/luhn/{yourname}*
+
