@@ -23,8 +23,8 @@ greeting.getOrElse(superComplexDefaultGreeting())
 ..match
 ```Scala
 greeting match {
-case Some(s) => s
-case None => "Dzień Dobry!"
+	case Some(s) => s
+	case None => "Dzień Dobry!"
 }
 ```
 
@@ -59,19 +59,19 @@ user.get(1) filter (_name.startsWith("T"))
 .. for comprehensions
 ```Scala
 for {
-id <- Range(1,10)
-u <- users.get(id)
-age <- u.age
+	id <- Range(1,10)
+	u <- users.get(id)
+	age <- u.age
 } yield age
 
 val ages = for {
-u <- users.values
-a <- u.age
+	u <- users.values
+	a <- u.age
 } yield a
 val avgAge = ages.sum / ages.size
 
 val ages = for {
-(_, Some(a)) <- users.values
+	(_, Some(a)) <- users.values
 } yield(a)
 ```
 
@@ -121,7 +121,7 @@ parseURL("invalid").getOrElse("www.duckduckgo.com")
 ```Scala
 import java.io.InputStream
 def inputStreamForURL(url: String): Try[InputStream] = parseURL(url).flatMap { u =>
-Try(u.openConnection()).flatMap(conn => Try(conn.getInputStream))
+	Try(u.openConnection()).flatMap(conn => Try(conn.getInputStream))
 }
 ```
 
@@ -148,9 +148,9 @@ case Failure(ex)
 import java.net.MalformedURLException
 import java.io.FileNotFoundException
 val content = getURLContent("garbage") recover {
-case e: FileNotFoundException => Iterator("Requested page does not exist")
-case e: MalformedURLException => Iterator("Please make sure to enter a valid URL")
-case _ => Iterator("An unexpected error has occurred. We are so sorry!")
+	case e: FileNotFoundException => Iterator("Requested page does not exist")
+	case e: MalformedURLException => Iterator("Please make sure to enter a valid URL")
+	case _ => Iterator("An unexpected error has occurred. We are so sorry!")
 }
 ```
 
@@ -180,9 +180,10 @@ r.right.map(_.toDouble): Either[String, Double] // Right(12.0)
 case class Customer(age: Int)
 class Cigarettes
 case class UnderAgeFailure(age: Int, required: Int)
+
 def buyCigarettes(customer: Customer): Either[UnderAgeFailure, Cigarettes] =
-if (customer.age < 16) Left(UnderAgeFailure(customer.age, 16))
-else Right(new Cigarettes)
+	if (customer.age < 16) Left(UnderAgeFailure(customer.age, 16))
+	else Right(new Cigarettes)
 ```
 
 ..or to work on collections
@@ -193,16 +194,16 @@ type Citizen = String
 case class BlackListedResource(url: URL, visitors: Set[Citizen])
 
 val blacklist = List(
-BlackListedResource(new URL("https://google.com"), Set("John Doe", "Johanna Doe")),
-BlackListedResource(new URL("http://yahoo.com"), Set.empty),
-BlackListedResource(new URL("https://maps.google.com"), Set("John Doe")),
-BlackListedResource(new URL("http://plus.google.com"), Set.empty)
+	BlackListedResource(new URL("https://google.com"), Set("John Doe", "Johanna Doe")),
+	BlackListedResource(new URL("http://yahoo.com"), Set.empty),
+	BlackListedResource(new URL("https://maps.google.com"), Set("John Doe")),
+	BlackListedResource(new URL("http://plus.google.com"), Set.empty)
 )
 
 val checkedBlacklist: List[Either[URL, Set[Citizen]]] =
-blacklist.map(resource =>
-if (resource.visitors.isEmpty) Left(resource.url)
-else Right(resource.visitors))
+	blacklist.map(resource =>
+		if (resource.visitors.isEmpty) Left(resource.url)
+		else Right(resource.visitors))
 
 val suspiciousResources = checkedBlacklist.flatMap(_.left.toOption)
 val problemCitizens = checkedBlacklist.flatMap(_.right.toOption).flatten.toSet
